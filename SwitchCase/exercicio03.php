@@ -8,13 +8,22 @@
 <body>
     <form action="" method="post">
         <label for="vlCompraInput">Digite o valor da compra</label>
-        <input type="text" id="vlCompraInput" name="vlCompraInput">
+        <input type="number" id="vlCompraInput" name="vlCompraInput" min="1"><br>
 
-        <label for="formPagInput">Digite a forma de pagamento</label>
-        <input type="text" id="formPagInput" name="formPagInput">
+        <label for="formPagInput">Digite a forma de pagamento
+            (1 – Dinheiro, 2 – Cheque, 3 – Cartão)
+        </label><br>
+        <input type="number" id="formPagInput" name="formPagInput" min="1"><br>
 
-        <label class="parcelas" valur="aaa" for="qntParcelasInput">Digite em quantas parcelas deseja pagar</label>
-        <input class="parcelas" type="number" id="qntParcelasInput" name="qntParcelasInput">
+        <div id="dtPrevista" style="display: none;">
+            <label for="dtPrevista">Digite a data prevista</label>
+            <input type="date" id="dtPrevista" name="dtPrevista">
+        </div>
+
+        <div id="parcelas" style="display: none;">
+            <label for="qntParcelasInput">Digite em quantas parcelas deseja pagar</label>
+            <input type="number" id="qntParcelasInput" name="qntParcelasInput" min="1">
+        </div>
         <button>Enviar</button>
     </form>
 </body>
@@ -26,18 +35,23 @@
     {
         $vlCompra = $_POST["vlCompraInput"];
         $formPag = $_POST["formPagInput"];
-
+        
+        echo "Valor da compra com ";
         switch ($formPag) {
             case '1':
-                echo "Valor da compra com desconto de 5%: " . $vlCompra * 0.95;
+                echo "desconto de 5%: " . $vlCompra * 0.95;
                 break;
 
             case '2':
-                echo "Valor da compra com juros de 5%: " . $vlCompra * 1.05;
+                echo "juros de 5%: " . $vlCompra * 1.05;
                 break;
 
             case '3':
-                echo "Três/Three";
+                echo "juros de 7%: " . $vlCompra * 1.07;
+                if(!empty($_POST["qntParcelasInput"]))
+                {
+                    echo "Valor das parcelas: " . (($vlCompra * 1.07) / $_POST["qntParcelasInput"]);
+                }
                 break;
 
             default:
@@ -49,12 +63,15 @@
 ?>
 <script>
     var formPagEl = document.getElementById("formPagInput");
-    formPagEl.addEventListener("change", () =>
+    formPagEl.addEventListener("input", () =>
     {
-        if(formPagEl.value == 3)
-        {
-            document.getElementsByClassName("parcelas");
-
-        }
+        var parcelas = document.getElementById("parcelas");
+        var dtPrevista = document.getElementById("dtPrevista");
+        parcelas.style.display = "none";        
+        dtPrevista.style.display = "none";
+        if(formPagEl.value == 3 && document.getElementById("vlCompraInput").value >= 100)
+            parcelas.style.display = "block";        
+        else if(formPagEl.value == 2)
+            dtPrevista.style.display = "block";
     });
 </script>
