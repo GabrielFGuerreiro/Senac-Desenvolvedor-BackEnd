@@ -12,7 +12,7 @@ $nums[5] = 1;
 $nums[6] = 180;
 
 for ($i = 0; $i < 7; $i++) {
-    if($nums[$i] = 30)
+    if($nums[$i] == 30)
     {
         echo "Índice do elemento que possui valor 30: " . $i;        
     }
