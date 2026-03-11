@@ -24,5 +24,11 @@ JOIN consulta c ON a.CD_ANIMAL = c.CD_ANIMAL
 JOIN veterinario v ON c.CD_VETERINARIO = v.CD_VETERINARIO
 JOIN consulta_tipo_servico cts ON c.CD_CONSULTA = cts.CD_CONSULTA
 JOIN tipo_servico ts ON cts.CD_TIPO_SERVICO = ts.CD_TIPO_SERVICO
+WHERE c.DT_CONSULTA >='2026-01-01 00:00:00' AND c.DT_CONSULTA <='2026-01-31 23:59:59'
+ORDER BY v.NM_VETERINARIO,c.DT_CONSULTA
 
-SELECT * FROM consulta_tipo_servico
+
+/*Listar nome Veterinario, data em que consultou, animal atendido, considerando todos os veterinarios*/
+SELECT v.NM_VETERINARIO,c.DT_CONSULTA,a.NM_ANIMAL FROM veterinario v
+LEFT JOIN consulta c ON v.CD_VETERINARIO = c.CD_VETERINARIO
+LEFT JOIN animal a ON c.CD_ANIMAL = a.CD_ANIMAL
