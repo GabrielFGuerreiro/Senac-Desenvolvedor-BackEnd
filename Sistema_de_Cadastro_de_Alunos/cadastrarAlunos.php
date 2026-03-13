@@ -16,27 +16,27 @@ $notas = array_fill(0, $qntAlunos, "");
     <title>Cadastrar Alunos</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body>    
     <div id="container">
         <h1>Cadastro do <span>0</span>º Aluno</h1>
-        <!-- <input id="alunoAtual" type="hidden" value="0"> -->
-        <form action="index.php" method="post" id="form"><?php
+        <form action="" method="post" id="form"><?php
             for($i = 0; $i < $qntAlunos; $i++) {?>
                 <div id="dadosAluno_<?=$i?>" style="">
-                    <label for="nmAluno">Nome<?=$i?>:</label>
-                    <input type="text" id="nmAluno_<?=$i?>" name="nmAluno_<?=$i?>" ><br>
+                    <label for="nmAluno">Nome:</label>
+                    <input type="text" id="nmAluno_<?=$i?>" name="nmAluno_<?=$i?>" >
                     
                     <label for="idadeAluno">Idade:</label>
-                    <input type="number" id="idadeAluno_<?=$i?>" name="idadeAluno_<?=$i?>" min="1" ><br>
+                    <input type="number" id="idadeAluno_<?=$i?>" name="idadeAluno_<?=$i?>" min="1" >
                     
                     <label for="cursoAluno">Curso:</label>
-                    <input type="text" id="cursoAluno_<?=$i?>" name="cursoAluno_<?=$i?>" ><br>
+                    <input type="text" id="cursoAluno_<?=$i?>" name="cursoAluno_<?=$i?>" >
                     
                     <label for="notaAluno">Nota Final:</label>
-                    <input type="number" id="notaAluno_<?=$i?>" name="notaAluno_<?=$i?>" min="0" ><br>  <br>                   
+                    <input type="number" id="notaAluno_<?=$i?>" name="notaAluno_<?=$i?>" min="0" >
                 </div><?php            
             }?>
             <button id="botaoSubmit" type="submit">Cadastrar</button>
+            <a href="index.php"><button type="button">Voltar</button></a>
         </form>
     </div>
 </body>
@@ -45,13 +45,13 @@ $notas = array_fill(0, $qntAlunos, "");
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
-
     for ($i = 0; $i < $qntAlunos; $i++) { 
         $nomes[$i] = $_POST["nmAluno_$i"];
         $idade[$i] = $_POST["idadeAluno_$i"];
         $cursos[$i] = $_POST["cursoAluno_$i"];
         $notas[$i] = $_POST["notaAluno_$i"];
     } 
+    echo "<div id='container2'><h1>Alunos Cadastrados com Sucesso!</h1></div>";
 }
 
 ?>
@@ -72,7 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if((parseInt(alunoAtual)) == 10)
+        {
+            container.style.display = "none";
             form.submit();
+        }
 
         container.querySelector("span").innerHTML = alunoAtual == "10"
                                                     ? "10"
