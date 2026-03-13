@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #cfe8ff, #eaf4ff);
+}
+
+.container{
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+h1{
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.professor{
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed #ccc;
+}
+
+.professor h3{
+    color: crimson;
+    margin-bottom: 15px;
+}
+
+.botao-lista{
+    display: block;
+    margin-top: 12px;
+    padding: 12px;
+    background: #444;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.botao-lista:hover{
+    background: #222;
+}
+
+
+.principal{
+    background: #0059ff;
+    font-size: 17px;
+}
+
+.principal:hover{
+    background: #003fcc;
+}
+
+form{
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 35px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+label{
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+
+input, select{
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+
+input[type="submit"]{
+    margin-top: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #0059ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+input[type="submit"]:hover{
+    background: #003fcc;
+}
+
+
+.botao-lista.principal{
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 16px;
+}
+
+button{
+    margin-top: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #0059ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover{
+    background: #003fcc;
+}
+
