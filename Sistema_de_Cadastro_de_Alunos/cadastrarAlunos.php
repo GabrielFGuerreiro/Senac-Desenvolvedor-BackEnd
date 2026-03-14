@@ -2,10 +2,12 @@
 $qntAlunos = 10;
 
 session_start();
-$_SESSION["nomes"] = [];
-$_SESSION["idades"] = [];
-$_SESSION["cursos"] = [];
-$_SESSION["notas"] = [];
+if (!isset($_SESSION["nomes"])) {
+    $_SESSION["nomes"] = [];
+    $_SESSION["idades"] = [];
+    $_SESSION["cursos"] = [];
+    $_SESSION["notas"] = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,24 +19,25 @@ $_SESSION["notas"] = [];
     <link rel="stylesheet" href="style.css">
 </head>
 <body>    
-    <div class="container">
-        <h1>Cadastro do <span>0</span>º Aluno</h1>
+    <div class="container">        
         <form action="" method="post" id="form"><?php
-            for($i = 0; $i < $qntAlunos; $i++) {?>
-                <div id="dadosAluno_<?=$i?>" style="">
-                    <label for="nmAluno">Nome:</label>
-                    <input type="text" id="nmAluno_<?=$i?>" name="nmAluno_<?=$i?>" required>
-                    
-                    <label for="idadeAluno">Idade:</label>
-                    <input type="number" id="idadeAluno_<?=$i?>" name="idadeAluno_<?=$i?>" min="1" required>
-                    
-                    <label for="cursoAluno">Curso:</label>
-                    <input type="text" id="cursoAluno_<?=$i?>" name="cursoAluno_<?=$i?>" required>
-                    
-                    <label for="notaAluno">Nota Final:</label>
-                    <input type="number" id="notaAluno_<?=$i?>" name="notaAluno_<?=$i?>" min="0" max="10" required>
-                </div><?php            
-            }?>
+            if(empty($_SESSION["nomes"])) {?>
+                <h1>Cadastro do <span>0</span>º Aluno</h1><?php
+                for($i = 0; $i < $qntAlunos; $i++) {?>
+                    <div id="dadosAluno_<?=$i?>" style="">
+                        <label for="nmAluno">Nome:</label>
+                        <input type="text" id="nmAluno_<?=$i?>" name="nmAluno_<?=$i?>" required>
+                        
+                        <label for="idadeAluno">Idade:</label>
+                        <input type="number" id="idadeAluno_<?=$i?>" name="idadeAluno_<?=$i?>" min="1" required>
+                        
+                        <label for="cursoAluno">Curso:</label>
+                        <input type="text" id="cursoAluno_<?=$i?>" name="cursoAluno_<?=$i?>" required>
+                        
+                        <label for="notaAluno">Nota Final:</label>
+                        <input type="number" id="notaAluno_<?=$i?>" name="notaAluno_<?=$i?>" min="0" max="10" required>
+                    </div><?php  
+            }} else { echo "<h1>Alunos Cadastrados com Sucesso!</h1>"; }?>
             <button id="botaoSubmit" type="submit">Cadastrar</button>
             <a href="index.php" class="btnVoltar">Voltar</a>
         </form>
@@ -67,13 +70,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //     'nota' => $_POST["notaAluno_$i"]
         // ];
     } 
-    echo "<div id='container'><h1>Alunos Cadastrados com Sucesso!</h1></div>";
 }
 
 ?>
 
 <script>
     var form = document.getElementById("form");
+
+    form.addEventListener("submit", e =>{e.preventDefault();})
+    
+    document.getElementById("botaoSubmit").addEventListener(
+        "click",
+        MostraCamposAlunoAtual
+    );    
+
     function MostraCamposAlunoAtual()
     {        
         var container = document.querySelector(".container");
@@ -97,11 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                     : parseInt(alunoAtual) + 1;
     }
 
-    document.getElementById("botaoSubmit").addEventListener(
-        "click",
-        MostraCamposAlunoAtual
-    );
-    form.addEventListener("submit", e =>{e.preventDefault();})
     MostraCamposAlunoAtual();
 </script>
 
