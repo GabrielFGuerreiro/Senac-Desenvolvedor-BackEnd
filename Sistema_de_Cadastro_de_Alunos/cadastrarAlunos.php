@@ -17,7 +17,7 @@ $_SESSION["notas"] = [];
     <link rel="stylesheet" href="style.css">
 </head>
 <body>    
-    <div id="container">
+    <div class="container">
         <h1>Cadastro do <span>0</span>º Aluno</h1>
         <form action="" method="post" id="form"><?php
             for($i = 0; $i < $qntAlunos; $i++) {?>
@@ -36,7 +36,7 @@ $_SESSION["notas"] = [];
                 </div><?php            
             }?>
             <button id="botaoSubmit" type="submit">Cadastrar</button>
-            <a href="index.php"><button type="button">Voltar</button></a>
+            <a href="index.php" class="btnVoltar">Voltar</a>
         </form>
     </div>
 </body>
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //     'nota' => $_POST["notaAluno_$i"]
         // ];
     } 
-    echo "<div id='container2'><h1>Alunos Cadastrados com Sucesso!</h1></div>";
+    echo "<div id='container'><h1>Alunos Cadastrados com Sucesso!</h1></div>";
 }
 
 ?>
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     var form = document.getElementById("form");
     function MostraCamposAlunoAtual()
     {        
-        var container = document.getElementById("container");
+        var container = document.querySelector(".container");
         var alunoAtual = container.querySelector("span").innerHTML;
 
         for (let i = 0; i < 10; i++) {

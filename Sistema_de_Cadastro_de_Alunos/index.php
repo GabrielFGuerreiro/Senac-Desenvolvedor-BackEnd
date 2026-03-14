@@ -19,11 +19,12 @@
             <button type="button">Calcular Média</button>
         </a>
 
-            <button type="submit">Sair</button>
+        <button type="submit">Sair</button>
     </div>
 </body>
 </html>
 
 <?php 
+    session_destroy();
       exit();
 ?>

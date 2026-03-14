@@ -7,19 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="" method="post">
-        <label for="nomeBusca">Nome:</label>
-        <input type="text" name="nomeBusca">
-        <button>Buscar</button>
-        <a href="index.php"><button type="button">Voltar</button></a>
-    </form>
+    <div class="container">
+        <h1>Lista de Alunos</h1>
+        <form action="" method="post">
+            <label for="nomeBusca">Nome:</label>
+            <input type="text" name="nomeBusca">
+            <button>Buscar</button>
+            <a href="index.php" class="btnVoltar">Voltar</a>
+        </form>
+    </div>
 </body>
 </html>
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
-    echo "<div id='container'>";
+    echo "<div class='container'>";
 
     if(!empty($_SESSION['nomes']))
     {
@@ -61,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "</table>";
     }
     else {
-        echo "Alunos Não Cadastrados.";
+        echo "Não Há Registros para Exibição.<br>Cadastre um Aluno Primeiro.";
     }
     echo "</div>";
 }
