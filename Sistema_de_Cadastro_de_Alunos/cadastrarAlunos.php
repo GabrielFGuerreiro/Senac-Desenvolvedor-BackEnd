@@ -23,16 +23,16 @@ $_SESSION["notas"] = [];
             for($i = 0; $i < $qntAlunos; $i++) {?>
                 <div id="dadosAluno_<?=$i?>" style="">
                     <label for="nmAluno">Nome:</label>
-                    <input type="text" id="nmAluno_<?=$i?>" name="nmAluno_<?=$i?>" >
+                    <input type="text" id="nmAluno_<?=$i?>" name="nmAluno_<?=$i?>" required>
                     
                     <label for="idadeAluno">Idade:</label>
-                    <input type="number" id="idadeAluno_<?=$i?>" name="idadeAluno_<?=$i?>" min="1" >
+                    <input type="number" id="idadeAluno_<?=$i?>" name="idadeAluno_<?=$i?>" min="1" required>
                     
                     <label for="cursoAluno">Curso:</label>
-                    <input type="text" id="cursoAluno_<?=$i?>" name="cursoAluno_<?=$i?>" >
+                    <input type="text" id="cursoAluno_<?=$i?>" name="cursoAluno_<?=$i?>" required>
                     
                     <label for="notaAluno">Nota Final:</label>
-                    <input type="number" id="notaAluno_<?=$i?>" name="notaAluno_<?=$i?>" min="0" >
+                    <input type="number" id="notaAluno_<?=$i?>" name="notaAluno_<?=$i?>" min="0" max="10" required>
                 </div><?php            
             }?>
             <button id="botaoSubmit" type="submit">Cadastrar</button>
