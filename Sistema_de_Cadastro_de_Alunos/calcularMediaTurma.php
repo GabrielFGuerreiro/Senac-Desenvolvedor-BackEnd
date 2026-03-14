@@ -8,10 +8,12 @@
 </head>
 <body>
     <div class="container">
-        <form action="" method="post">
-
-
-        </form>
+        
     </div>
+
 </body>
 </html>
+
+<?php
+
+?>

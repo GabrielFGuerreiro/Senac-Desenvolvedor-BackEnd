@@ -1,11 +1,11 @@
 <?php
 $qntAlunos = 10;
 
-$nomes = array_fill(0, $qntAlunos, "");
-$idades = array_fill(0, $qntAlunos, "");
-$cursos = array_fill(0, $qntAlunos, "");
-$notas = array_fill(0, $qntAlunos, "");
-
+session_start();
+$_SESSION["nomes"] = [];
+$_SESSION["idades"] = [];
+$_SESSION["cursos"] = [];
+$_SESSION["notas"] = [];
 ?>
 
 <!DOCTYPE html>
@@ -46,10 +46,26 @@ $notas = array_fill(0, $qntAlunos, "");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
     for ($i = 0; $i < $qntAlunos; $i++) { 
-        $nomes[$i] = $_POST["nmAluno_$i"];
-        $idade[$i] = $_POST["idadeAluno_$i"];
-        $cursos[$i] = $_POST["cursoAluno_$i"];
-        $notas[$i] = $_POST["notaAluno_$i"];
+        array_push($_SESSION["nomes"], $_POST["nmAluno_$i"]);
+        array_push($_SESSION["idades"], $_POST["idadeAluno_$i"]);
+        array_push($_SESSION["cursos"], $_POST["cursoAluno_$i"]);
+        array_push($_SESSION["notas"], $_POST["notaAluno_$i"]);
+
+        // $_SESSION["nomes"][$i] = [ //Usando array associativo
+        //     'nome' => $_POST["nmAluno_$i"]
+        // ];
+
+        // $_SESSION["idades"] = [
+        //     'idade' => $_POST["idadeAluno_$i"]
+        // ];
+
+        // $_SESSION["cursos"] = [
+        //     'curso' => $_POST["cursoAluno_$i"]
+        // ];
+
+        // $_SESSION["notas"] = [
+        //     'nota' => $_POST["notaAluno_$i"]
+        // ];
     } 
     echo "<div id='container2'><h1>Alunos Cadastrados com Sucesso!</h1></div>";
 }
@@ -73,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if((parseInt(alunoAtual)) == 10)
         {
-            container.style.display = "none";
             form.submit();
         }
 

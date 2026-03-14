@@ -14,14 +14,16 @@
         </a>
         <a href="listarAlunos.php" type="button">
             <button type="button">Listar Alunos</button>
-        </a>
-        
+        </a>        
         <a href="calcularMediaTurma.php" type="button">
-            <button type="button">Calcular Média da Turma</button>
+            <button type="button">Calcular Média</button>
         </a>
-        <a href="cadastrarAlunos.php" type="button">
-            <button type="button">Sair</button>
-        </a>
+
+            <button type="submit">Sair</button>
     </div>
 </body>
 </html>
+
+<?php 
+      exit();
+?>
