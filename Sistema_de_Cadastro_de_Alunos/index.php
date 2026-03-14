@@ -1,3 +1,14 @@
+<?php 
+session_start();
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    session_unset();
+    session_destroy();
+    header("Location: index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,23 +19,14 @@
 </head>
 <body>
     <div class="container menu">
-        <h1>Sistema de Cadastro de Alunos</h1>
-        <a href="cadastrarAlunos.php" type="button">
-            <button type="button">Cadastrar Alunos</button>
-        </a>
-        <a href="listarAlunos.php" type="button">
-            <button type="button">Listar Alunos</button>
-        </a>        
-        <a href="calcularMediaTurma.php" type="button">
-            <button type="button">Calcular Média</button>
-        </a>
-
-        <button type="submit">Sair</button>
+        <form action="" method="post" style="align-items: center;">
+            <h1>Sistema de Cadastro de Alunos</h1>
+            <button type="button" onclick="window.location.href='cadastrarAlunos.php'">Cadastrar Alunos</button>
+            <button type="button" onclick="window.location.href='listarAlunos.php'">Listar Alunos</button>
+            <button type="button" onclick="window.location.href='calcularMediaTurma.php'">Calcular Média</button>
+            <button type="submit" class="btnSair">Sair</button>
+        </form>
     </div>
 </body>
 </html>
 
-<?php 
-    session_destroy();
-      exit();
-?>
