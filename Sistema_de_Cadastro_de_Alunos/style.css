@@ -4,15 +4,17 @@
     box-sizing: border-box;
 }
 
-body{
-    display: block;
+body {
+    display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 70vh;
+    flex-direction: column;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #cfe8ff, #eaf4ff);
 }
 
-#container, #container2{
+.container {
     background: white;
     width: 100%;
     max-width: 420px;
@@ -21,38 +23,43 @@ body{
     text-align: center;
 }
 
-h1{
-    margin-bottom: 25px;
+h1 {
     text-align: center;
 }
 
-form{
+form {
     background: white;
     width: 100%;
     max-width: 420px;
     padding: 35px;
     border-radius: 16px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
     gap: 14px;
 }
 
-label{
+label {
     margin-top: 10px;
     font-weight: bold;
-}
-
-input{
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    display: block;
-    margin-bottom: 10px;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
+input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    display: flex;
+    margin: 0 auto 10px auto;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+}
 
-input[type="submit"]{
+button {
     margin-top: 18px;
     padding: 12px;
     border: none;
@@ -63,27 +70,47 @@ input[type="submit"]{
     cursor: pointer;
 }
 
-input[type="submit"]:hover{
+button:hover {
     background: #003fcc;
 }
 
-button{
-    margin-top: 18px;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #0059ff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover{
-    background: #003fcc;
-}
-
-.menu button{
+.menu button {
     width: 200px;
     height: 100px;
     font-size: 20px;
+}
+
+.btnVoltar {
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #00a2ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+.btnVoltar:hover {
+    background: #1087cc;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.btnSair {
+    width: 200px;
+    height: 100px;
+    font-size: 20px;
+    background: #ff4c4c;
+}
+
+.btnSair:hover {
+    background: #cc0000;
 }
