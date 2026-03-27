@@ -49,7 +49,7 @@ CALL SP_INSERT_SERVICO ('teste', 1.0)
 
 
 
-/*Criar uma view que traga a data da consulta,
+/*1.Criar uma view que traga a data da consulta,
 o nome do pet, o nome do cliente e seu telefone*/
 CREATE VIEW VW_SELECT_CONSULTAS_CLIENTE
 AS
@@ -66,7 +66,7 @@ ON a.CD_ANIMAL = consulta.CD_ANIMAL
 
 SELECT * FROM VW_SELECT_CONSULTAS_CLIENTE
 
-/*Criar uma procedure que traga o nome do pet, o nome do cliente
+/*2.Criar uma procedure que traga o nome do pet, o nome do cliente
 e telefone, de acordo com o tipo do animal
 Ex.: Cachorro, Gato, etc...*/
 CREATE PROCEDURE SP_SELECT_DADOS_ANIMAL
