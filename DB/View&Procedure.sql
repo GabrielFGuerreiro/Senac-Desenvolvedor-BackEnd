@@ -56,13 +56,16 @@ AS
 SELECT consulta.DT_CONSULTA,
   	    a.NM_ANIMAL,
   	    c.NM_CLIENTE,
-  	    c.CELULAR
+  	    ct.NUMERO_CONTATO
 
 FROM cliente c
-INNER JOIN animal a
+JOIN animal a
 ON a.CD_CLIENTE = c.CD_CLIENTE
-INNER JOIN consulta 
+JOIN consulta 
 ON a.CD_ANIMAL = consulta.CD_ANIMAL
+JOIN contato_telefonico ct
+ON c.CD_CLIENTE = ct.CD_CONTATO_TELEFONICO
+
 
 SELECT * FROM VW_SELECT_CONSULTAS_CLIENTE
 
@@ -71,18 +74,59 @@ e telefone, de acordo com o tipo do animal
 Ex.: Cachorro, Gato, etc...*/
 CREATE PROCEDURE SP_SELECT_DADOS_ANIMAL
 (
-	IN ESPECIE VARCHAR(50)
+	IN _ESPECIE VARCHAR(50)
 )
 SELECT
   	    a.NM_ANIMAL,
   	    c.NM_CLIENTE,
-  	    c.CELULAR
+  	    ct.NUMERO_CONTATO
 
 FROM cliente c
-INNER JOIN animal a
+JOIN animal a
 ON a.CD_CLIENTE = c.CD_CLIENTE
-INNER JOIN consulta 
-ON a.CD_ANIMAL = consulta.CD_ANIMAL
-WHERE a.especie = ESPECIE
+JOIN contato_telefonico ct
+ON c.CD_CLIENTE = ct.CD_CONTATO_TELEFONICO
+WHERE a.especie = _ESPECIE
 
 CALL SP_SELECT_DADOS_ANIMAL('cão')
+
+ 
+/* 03) Criar uma procedure para alterar os dados
+o peso de determinado animal, já que este
+dado é dinâmico*/
+ 
+ CREATE PROCEDURE SP_UPDATE_PESO_ANIMAL
+ (
+ 	IN _CD_ANIMAL INT,
+ 	IN _PESO DECIMAL(5,2)
+ )
+ UPDATE ANIMAL
+ SET PESO = _PESO
+ WHERE CD_ANIMAL =_CD_ANIMAL
+SELECT * FROM animal
+CALL SP_UPDATE_PESO_ANIMAL (1, 6.30)
+
+/* 04) Criar uma procedure para reajustar em X percentual
+toda a tabela de serviços*/
+
+CREATE PROCEDURE SP_UPDATE_REAJUSTE_PERCENT_SERVICO
+(
+	IN PERCENTUAL (5,2)
+)
+UPDATE tipo_servico
+SET VL_SERVICO = VL_SERVICO * (1+(PERCENTUAL/100))
+
+CALL SP_UPDATE_REAJUSTE_PERCENT_SERVICO(10)
+
+/* DESAFIO - Modelo Praia automatizar o processo de
+locação de UM PRODUTO atualizando o estoque e tudo necessário*/
+SELECT * FROM aluguel
+INSERT INTO aluguel 
+(CD_CLIENTE, CD_FUNCIONARIO, DT_RETIRADA, DT_DEVOLUCAO, VL_A_PAGAR, PAGO, FORMA_PAGAMENTO, QNT_VEZES)
+VALUES
+()
+
+INSERT INTO aluguel_equipamento
+(CD_EQUIPAMENTO, CD_ALGUEL, VL_ITEM, VL_UNITARIO)
+
+SELECT * FROM ALUGUEL_EQUIPAMENTO
