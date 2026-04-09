@@ -17,7 +17,7 @@
                 abaixo e envie a capa e o arquivo digital do livro em formato pdf.
             </p>
             <br>
-            <form action="" method="post">
+            <form action="salvar_livro.php" method="post" enctype="multipart/form-data">
                 <label for="tituloInput">Título do Livro</label>
                 <input type="text" id="tituloInput" name="tituloInput" required>
 
@@ -27,8 +27,8 @@
                 <label for="anoInput">Ano da Publicação</label>
                 <input type="number" id="anoInput" name="anoInput" required>
 
-                <label for="catSelect">Categoria</label>
-                <select name="catSelect" id="catSelect" required>
+                <label for="categSelect">Categoria</label>
+                <select name="categSelect" id="categSelect" required>
                     <option value="">Selecione...</option>
                     <option value="r">Romance</option>
                     <option value="lb">Literatura Brasileira</option>
@@ -40,8 +40,11 @@
                 </select>
                 <br><br>
 
-                <label for="">Capa do Livro (imagem)</label>
-                <input type="file" id="arqInput" name="arqInput" accept="application/pdf" required>
+                <label for="capaInput">Capa do Livro (imagem)</label>
+                <input type="file" id="capaInput" name="capaInput" accept="image/*" required>
+                
+                <label for="arqPdfInput"> Arquivo do livro (pdf)</label>
+                <input type="file" name="arqPdfInput" accept="application/pdf" required>
                 <br>
                 <button class="btn">Cadastrar Livro</button>
             </form>
