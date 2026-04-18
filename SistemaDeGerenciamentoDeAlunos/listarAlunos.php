@@ -67,7 +67,7 @@
                     echo "<td>" . $media . "</td>";
                     echo "<td>" . $_SESSION['faltas'][$i] . " (" . number_format($percentualFaltas, 2) . "%)</td>";
                     echo "<td>" . $situacao . "</td>";
-                    echo "<td><a href='cadastrarAlunos.php?idAluno=" . $i . "' class='btnEditar'>Editar</a></td>";
+                    echo "<td><a href='cadastrarAlunos.php?idAlunoEditar=" . $i . "' class='btnEditar'>Editar</a></td>";
                     echo "<td><a href='cadastrarAlunos.php?idAluno=" . $i . "' class='btnEditar'>Excluir</a></td></tr>";
                 }
             }
