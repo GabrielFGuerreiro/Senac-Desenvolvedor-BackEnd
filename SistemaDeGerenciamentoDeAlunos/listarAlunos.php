@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?> 
     
     <form action="" method="post">
         <label for="matriculaBusca">Matrícula:</label>
@@ -19,6 +18,7 @@
         <button>Buscar</button><br>
         <a href="index.php" class="btnVoltar">Voltar</a>
     </form>
+<?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?> 
 
     <div class="container"><br>
 
@@ -52,11 +52,12 @@
                 <th>Excluir</th>
             </tr>
 
-            <?php foreach ($_SESSION['matriculas'] as $i => $matricula):                 
+            <?php foreach ($_SESSION['matriculas'] as $i => $matricula):
+                    $media = ($_SESSION['notas1'][$i] + $_SESSION['notas2'][$i]) / 2;
+                    $mediaTurma += $media;
                     //Se há aluno(s) buscado(s) e o aluno atual não é um deles, pula para o próximo.
                     if (!empty($idsAlunosBusca) && !in_array($i, $idsAlunosBusca)){continue;}
 
-                    $media = ($_SESSION['notas1'][$i] + $_SESSION['notas2'][$i]) / 2;
                     $percentualFaltas = $_SESSION['faltas'][$i] / 256 * 100;
                     $situacao = ($media >= 7 && $percentualFaltas < 25) ? "Aprovado" : "Reprovado";
                 ?>
@@ -86,8 +87,20 @@
 
         </table>
 
-    <?php else: ?>
-        Nenhum Aluno Cadastrado.
+        <div>
+            <div>
+                <h3>Média da Turma</h3>
+                <?= number_format($mediaTurma/COUNT($_SESSION['matriculas']), 2) ?>
+            </div>
+            
+            <div>
+                <h3>Aluno </h3>
+            </div>
+        </div>
+
+        <?php else: ?>
+            Nenhum Aluno Cadastrado.
+            
     <?php endif; ?>
 
     </div>
