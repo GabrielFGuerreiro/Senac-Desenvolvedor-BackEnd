@@ -11,70 +11,87 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?> 
+    
     <form action="" method="post">
         <label for="matriculaBusca">Matrícula:</label>
         <input type="text" name="matriculaBusca">
-        <button>Buscar</button>
+        <button>Buscar</button><br>
         <a href="index.php" class="btnVoltar">Voltar</a>
     </form>
-</body>
-</html>
 
-<?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
-        echo "<div class='container'>";
+    <div class="container"><br>
 
-        if(!empty(($_SESSION['matriculas'])))
-        {
+    <?php if (!empty($_SESSION['matriculas'])): 
+
             $matriculaBusca = $_POST['matriculaBusca'];
-            $indexAlunos = [];
-            if(!empty($matriculaBusca))
-            {
-                for ($i=0; $i < COUNT($_SESSION['matriculas']); $i++) { 
-                    if(str_contains(strtoupper($_SESSION['matriculas'][$i]), strtoupper($matriculaBusca)))    
-                        $indexAlunos[] = $i;
-                } 
+            $idsAlunosBusca = [];
 
-                if($indexAlunos == [])
-                {
+            if (!empty($matriculaBusca)) {
+                for ($i = 0; $i < COUNT($_SESSION['matriculas']); $i++) { 
+                    if (str_contains(strtoupper($_SESSION['matriculas'][$i]), strtoupper($matriculaBusca)))    
+                        $idsAlunosBusca[] = $i;
+                }
+
+                if ($idsAlunosBusca == []) {
                     echo "Aluno Não Encontrado.";
                     echo "</div>";
                     exit();
                 } 
             }
-            
-            echo "<table border='1'><tr>";
-            echo "<th>Matrícula</th>";
-            echo "<th>Nome</th>";
-            echo "<th>Média Final</th>";
-            echo "<th>Qnt de Faltas</th>";
-            echo "<th>Situação</th>";
-            echo "<th>Editar</th>";
-            echo "<th>Excluir</th></tr>";
+        ?>
 
-            foreach ($_SESSION['matriculas'] as $i => $matricula) {                
-                if(empty($indexAlunos) || in_array($i, $indexAlunos)) {
-                    $situacao = "Reprovado";
+        <table border="1">
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome</th>
+                <th>Média Final</th>
+                <th>Qnt de Faltas</th>
+                <th>Situação</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+
+            <?php foreach ($_SESSION['matriculas'] as $i => $matricula):                 
+                    //Se há aluno(s) buscado(s) e o aluno atual não é um deles, pula para o próximo.
+                    if (!empty($idsAlunosBusca) && !in_array($i, $idsAlunosBusca)){continue;}
+
                     $media = ($_SESSION['notas1'][$i] + $_SESSION['notas2'][$i]) / 2;
                     $percentualFaltas = $_SESSION['faltas'][$i] / 256 * 100;
+                    $situacao = ($media >= 7 && $percentualFaltas < 25) ? "Aprovado" : "Reprovado";
+                ?>
 
-                    if($media  >= 7 && $percentualFaltas < 25) {
-                        $situacao = "Aprovado";
-                    }
+                <tr>
+                    <td><?= $_SESSION['matriculas'][$i] ?></td>
+                    <td><?= $_SESSION['nomes'][$i] ?></td>
+                    <td><?= $media ?></td>
+                    <td>
+                        <?= $_SESSION['faltas'][$i] ?> 
+                        (<?= number_format($percentualFaltas, 2) ?>%)
+                    </td>
+                    <td><?= $situacao ?></td>
+                    <td>
+                        <a href="cadastrarAlunos.php?idAlunoEditar=<?= $i ?>&icExcluir=<?= false ?>" class="btnEditar">
+                            Editar
+                        </a>
+                    </td>
+                    <td>
+                        <a href="cadastrarAlunos.php?idAlunoEditar=<?= $i ?>&icExcluir=<?= true ?>" class="btnExcluir">
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
 
-                    echo "<tr><td>" . $_SESSION['matriculas'][$i] . "</td>";
-                    echo "<td>" . $_SESSION['nomes'][$i] . "</td>";
-                    echo "<td>" . $media . "</td>";
-                    echo "<td>" . $_SESSION['faltas'][$i] . " (" . number_format($percentualFaltas, 2) . "%)</td>";
-                    echo "<td>" . $situacao . "</td>";
-                    echo "<td><a href='cadastrarAlunos.php?idAlunoEditar=" . $i . "&icExcluir=" . false . "'class='btnEditar'>Editar</a></td>";
-                    echo "<td><a href='cadastrarAlunos.php?idAlunoEditar=" . $i . "&icExcluir=" . true . "' class='btnExcluir'>Excluir</a></td></tr>";
-                }
-            }
-            echo "</table>";
-        }
-        else {
-            echo "Nenhum Aluno Cadastrado.";
-        }       
-    }
-?>
+            <?php endforeach; ?>    
+
+        </table>
+
+    <?php else: ?>
+        Nenhum Aluno Cadastrado.
+    <?php endif; ?>
+
+    </div>
+
+<?php endif; ?>
+</body>
+</html>
