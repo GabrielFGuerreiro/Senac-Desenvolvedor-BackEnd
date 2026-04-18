@@ -22,7 +22,6 @@
 
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
-
         echo "<div class='container'>";
 
         if(!empty(($_SESSION['matriculas'])))
@@ -52,7 +51,8 @@
             echo "<th>Situação</th>";
             echo "<th>Editar</th>";
             echo "<th>Excluir</th></tr>";
-            for ($i = 0; $i < COUNT($_SESSION['matriculas']); $i++) {
+
+            foreach ($_SESSION['matriculas'] as $i => $matricula) {                
                 if(empty($indexAlunos) || in_array($i, $indexAlunos)) {
                     $situacao = "Reprovado";
                     $media = ($_SESSION['notas1'][$i] + $_SESSION['notas2'][$i]) / 2;
@@ -67,8 +67,8 @@
                     echo "<td>" . $media . "</td>";
                     echo "<td>" . $_SESSION['faltas'][$i] . " (" . number_format($percentualFaltas, 2) . "%)</td>";
                     echo "<td>" . $situacao . "</td>";
-                    echo "<td><a href='cadastrarAlunos.php?idAlunoEditar=" . $i . "' class='btnEditar'>Editar</a></td>";
-                    echo "<td><a href='cadastrarAlunos.php?idAluno=" . $i . "' class='btnEditar'>Excluir</a></td></tr>";
+                    echo "<td><a href='cadastrarAlunos.php?idAlunoEditar=" . $i . "&icExcluir=" . false . "'class='btnEditar'>Editar</a></td>";
+                    echo "<td><a href='cadastrarAlunos.php?idAlunoEditar=" . $i . "&icExcluir=" . true . "' class='btnExcluir'>Excluir</a></td></tr>";
                 }
             }
             echo "</table>";
