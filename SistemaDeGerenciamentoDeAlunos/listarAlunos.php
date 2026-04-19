@@ -54,7 +54,11 @@
 
             <?php 
                 $maiorMedia = -1;
+                $menorMedia = 11;
+
                 $alunosMaiores = [];
+                $alunosMenores = [];
+
                 foreach ($_SESSION['matriculas'] as $i => $matricula):
                     $media = ($_SESSION['notas1'][$i] + $_SESSION['notas2'][$i]) / 2;
                     $mediaTurma += $media;
@@ -66,6 +70,13 @@
                     elseif ($media == $maiorMedia)
                         $alunosMaiores[] = $i; //Empata, adiciona também
                     
+                    if ($media < $menorMedia) {
+                        $menorMedia = $media;
+                        $alunosMenores = [$i]; 
+                    }
+                    elseif ($media == $menorMedia)
+                        $alunosMenores[] = $i;
+
                     //Se há aluno(s) buscado(s) e o aluno atual não é um deles, pula para o próximo.
                     if (!empty($idsAlunosBusca) && !in_array($i, $idsAlunosBusca)){continue;}
 
@@ -76,7 +87,7 @@
                 <tr>
                     <td><?= $_SESSION['matriculas'][$i] ?></td>
                     <td><?= $_SESSION['nomes'][$i] ?></td>
-                    <td><?= $media ?></td>
+                    <td><?= number_format($media, 2) ?></td>
                     <td>
                         <?= $_SESSION['faltas'][$i] ?> 
                         (<?= number_format($percentualFaltas, 2) ?>%)
@@ -108,6 +119,15 @@
                 <h3>Aluno(s) com Maior Média (<?= number_format($maiorMedia, 2) ?>)</h3>
                 <?php 
                 foreach ($alunosMaiores as $i) {
+                    echo "Matrícula: " . $_SESSION['matriculas'][$i] . "<br>";
+                    echo "Nome: " . $_SESSION['nomes'][$i] . "<br><br>";
+                } ?>
+            </div>
+
+            <div>
+                <h3>Aluno(s) com Menor Média (<?= number_format($menorMedia, 2) ?>)</h3>
+                <?php 
+                foreach ($alunosMenores as $i) {
                     echo "Matrícula: " . $_SESSION['matriculas'][$i] . "<br>";
                     echo "Nome: " . $_SESSION['nomes'][$i] . "<br><br>";
                 } ?>
