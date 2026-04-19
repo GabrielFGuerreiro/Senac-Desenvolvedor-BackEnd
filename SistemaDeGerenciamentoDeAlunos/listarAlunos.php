@@ -14,10 +14,16 @@
     
     <form action="" method="post">
         <label for="matriculaBusca">Matrícula:</label>
-        <input type="text" name="matriculaBusca">
+        <input type="text" name="matriculaBusca"><br>
+
+        <label for="situacaoAprovado">Aprovados</label>
+        <input type="radio" name="situacaoBusca" id="situacaoAprovado" value="A"><br>
+
+        <label for="situacaoReprovado">Reprovados</label>
+        <input type="radio" name="situacaoBusca" id="situacaoReprovado" value="R"><br>
         <button>Buscar</button><br>
-        <a href="index.php" class="btnVoltar">Voltar</a>
     </form>
+    <a href="index.php" class="btnVoltar">Voltar</a>
 <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?> 
 
     <div class="container"><br>
@@ -78,10 +84,13 @@
                         $alunosMenores[] = $i;
 
                     //Se há aluno(s) buscado(s) e o aluno atual não é um deles, pula para o próximo.
-                    if (!empty($idsAlunosBusca) && !in_array($i, $idsAlunosBusca)){continue;}
+                    if (!empty($idsAlunosBusca) && !in_array($i, $idsAlunosBusca)) continue;
 
                     $percentualFaltas = $_SESSION['faltas'][$i] / 256 * 100;
                     $situacao = ($media >= 7 && $percentualFaltas < 25) ? "Aprovado" : "Reprovado";
+
+                    if($_POST['situacaoBusca'] == 'A' && $situacao =="Reprovado") continue;
+                    else if($_POST['situacaoBusca'] == 'R' && $situacao =="Aprovado") continue;
                 ?>
 
                 <tr>
@@ -131,6 +140,12 @@
                     echo "Matrícula: " . $_SESSION['matriculas'][$i] . "<br>";
                     echo "Nome: " . $_SESSION['nomes'][$i] . "<br><br>";
                 } ?>
+            </div>
+
+            <div>
+                <h3>Quantidade de Alunos Cadastrados</h3>
+                <?= COUNT($_SESSION['matriculas']) ?>
+            </div>
             </div>
         </div>
 
