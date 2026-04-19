@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-Br">
 <head>
@@ -7,8 +6,19 @@
     <title>Menu</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <a href="cadastrarAlunos.php">Cadastrar Alunos</a>
-    <a href="listarAlunos.php">Listar Alunos</a>
+
+<div class="menu-container container">
+
+    <h1>Gerenciamento de Alunos</h1>
+
+    <div class="menu">
+        <a href="cadastrarAlunos.php" class="menu-btn">Cadastrar Alunos</a>
+        <a href="listarAlunos.php" class="menu-btn">Listar Alunos</a>
+    </div>
+
+</div>
+
 </body>
 </html>
