@@ -52,9 +52,20 @@
                 <th>Excluir</th>
             </tr>
 
-            <?php foreach ($_SESSION['matriculas'] as $i => $matricula):
+            <?php 
+                $maiorMedia = -1;
+                $alunosMaiores = [];
+                foreach ($_SESSION['matriculas'] as $i => $matricula):
                     $media = ($_SESSION['notas1'][$i] + $_SESSION['notas2'][$i]) / 2;
                     $mediaTurma += $media;
+                    
+                    if ($media > $maiorMedia) {
+                        $maiorMedia = $media;
+                        $alunosMaiores = [$i]; //Cria um novo array caso o aluno atual tenha a maior média
+                    }
+                    elseif ($media == $maiorMedia)
+                        $alunosMaiores[] = $i; //Empata, adiciona também
+                    
                     //Se há aluno(s) buscado(s) e o aluno atual não é um deles, pula para o próximo.
                     if (!empty($idsAlunosBusca) && !in_array($i, $idsAlunosBusca)){continue;}
 
@@ -94,7 +105,12 @@
             </div>
             
             <div>
-                <h3>Aluno </h3>
+                <h3>Aluno(s) com Maior Média (<?= number_format($maiorMedia, 2) ?>)</h3>
+                <?php 
+                foreach ($alunosMaiores as $i) {
+                    echo "Matrícula: " . $_SESSION['matriculas'][$i] . "<br>";
+                    echo "Nome: " . $_SESSION['nomes'][$i] . "<br><br>";
+                } ?>
             </div>
         </div>
 
