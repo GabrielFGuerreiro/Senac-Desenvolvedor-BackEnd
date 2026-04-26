@@ -7,13 +7,24 @@ possui letra maiúscula -->
 <?php
 function validarSenha($senha)
 {
-    if(strlen(($senha) >= 8 ))    
+    $temNumero = false;
+    $temMaiuscula = false;
+    for($i = 0; $i < strlen($senha); $i++)
+    {
+        if(ctype_digit($senha[$i]))
+            $temNumero = true;
+
+        if(ctype_upper($senha[$i]))
+            $temMaiuscula = true;
+    }
+
+    if(strlen($senha) >= 8 && $temNumero && $temMaiuscula)    
         return "Senha válida";    
     else    
-        return "Senha inválida";
-    
+        return "Senha inválida";    
 }
-validarSenha("12345Abc")
+
+echo validarSenha("1234AbCd");
 ?>
 
 
