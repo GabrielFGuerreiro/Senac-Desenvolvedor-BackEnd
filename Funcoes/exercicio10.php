@@ -7,17 +7,18 @@ retornar o token gerado;
 exibir o token na tela.
 Ex.: A7x9Kp2LmQ -->
 
-
 <?php
-function gerarToken($senha)
+function gerarToken($tamToken)
 {
-    if(strlen(($senha) >= 8 ))    
-        return "Senha válida";    
-    else    
-        return "Senha inválida";
-    
+    $caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $token = "";
+
+    for ($i = 0; $i < $tamToken; $i++) {
+        $token .= $caracteres[random_int(0, strlen($caracteres) - 1)]; //Índice aleatório usando random_int. Pode retornar o primeiro caractere (índice 0, letra "a" ) até o último caractere (strLen, número "9").
+    }
+    return $token;    
 }
-echo gerarToken("12345Abc")
+echo gerarToken(10);
 ?>
 
 
