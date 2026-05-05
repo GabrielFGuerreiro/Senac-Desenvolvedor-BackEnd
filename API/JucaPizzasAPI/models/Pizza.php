@@ -10,6 +10,18 @@ class Pizza {
     public function __construct($db) {
         $this->conn = $db;
     }
+
+    public function getAll()
+    {
+        //Salvando a query em SQL em uma variável
+        $query = "SELECT idPizza, nome, ingredientes, valor FROM {$this->tabela}";
+
+        //Preparando a query para ser excutada, ou seja, vinculando ela à conexão
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute(); //Executando a query no BD
+        return $stmt;
+    }
 }
 
 ?>
