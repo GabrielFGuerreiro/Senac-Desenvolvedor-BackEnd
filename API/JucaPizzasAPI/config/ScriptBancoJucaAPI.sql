@@ -15,3 +15,21 @@ INSERT INTO pizzas (nome, ingredientes, valor) VALUES
 ('Moda do Juca', 'Mussarela, peito de peru, palmito, alho poró e alcaparras', 72.50);
 
 SELECT * FROM pizzas
+
+
+CREATE TABLE bebidas (
+	idBebida INT AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(50) NOT NULL,
+	ingredientes VARCHAR(255) NOT NULL,
+	icAlcoolico BIT,
+	valor DECIMAL(10, 2) NOT NULL
+);
+
+INSERT INTO bebidas (nome, ingredientes, icAlcoolico, valor) VALUES
+('Caipirinha', 'Cachaça, limão, açúcar e gelo', 1, 18.50),
+('Mojito', 'Rum, hortelã, limão, açúcar, água com gás e gelo', 1, 22.00),
+('Suco de Laranja', 'Laranja natural e gelo', 0, 10.00),
+('Refrigerante Cola', 'Água gaseificada, açúcar e extrato de cola', 0, 8.50),
+('Gin Tônica', 'Gin, água tônica, limão e gelo', 1, 25.90);
+
+SELECT * FROM BEBIDAS
