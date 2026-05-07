@@ -22,6 +22,23 @@ class Pizza {
         $stmt->execute(); //Executando a query no BD
         return $stmt;
     }
+
+    public function get()
+    {
+        $query = "SELECT idPizza, nome, ingredientes, valor
+                    FROM {$this->tabela}
+                    WHERE idPizza = ?
+                    LIMIT 1";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->idPizza);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        $this->nome = $row['nome'];
+        $this->ingredientes = $row['ingredientes'];
+        $this->valor = $row['valor'];
+    }
 }
 
 ?>
