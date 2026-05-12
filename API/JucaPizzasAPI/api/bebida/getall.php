@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET")
         
         // Informar ao usuário que nenhuma bebida foi encontrada
         echo json_encode(
-            array("Mensagem" => "Nenhuma bebida encontrada.")
+            array("Erro" => "Nenhuma bebida encontrada.")
         );
     }
 }
@@ -67,7 +67,7 @@ else
     
     // Informar ao usuário que o método não é permitido
     echo json_encode(
-        array("Mensagem" => "Método não permitido.")
+        array("Erro" => "Método não permitido.")
     );
 }
 // }

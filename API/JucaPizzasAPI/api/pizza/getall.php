@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET")
         
         // Informar ao usuário que nenhuma pizza foi encontrada
         echo json_encode(
-            array("Mensagem" => "Nenhuma pizza encontrada.")
+            array("Erro" => "Nenhuma pizza encontrada.")
         );
     }
 }
@@ -66,7 +66,7 @@ else
     
     // Informar ao usuário que o método não é permitido
     echo json_encode(
-        array("Mensagem" => "Método não permitido.")
+        array("Erro" => "Método não permitido.")
     );
 }
 // }

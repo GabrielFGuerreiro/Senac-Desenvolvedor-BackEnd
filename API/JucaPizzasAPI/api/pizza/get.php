@@ -22,7 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if ($pizza->idPizza) {
         // Busca a pizza
         $pizza->get(); 
-
+        if($pizza->nome == null) 
+        {
+            http_response_code(404);
+            echo json_encode(array("Erro" => "Pizza não encontrada."));
+            exit();
+        }
         // Cria o array de resposta
         $pizza_arr = array(
             "id" => $pizza->idPizza,
@@ -35,13 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // `JSON_PRETTY_PRINT` é opcional, mas deixa o JSON mais legível
         echo json_encode($pizza_arr, JSON_PRETTY_PRINT);
     } else {
-
+        http_response_code(400);
+        echo json_encode(
+            array("Erro" => "Id não informado.")
+        );
     }
 }
 else {
     http_response_code(405);
     echo json_encode(
-        array("Mensagem" => "Método não permitido.")
+        array("Erro" => "Método não permitido.")
     );
 }
 

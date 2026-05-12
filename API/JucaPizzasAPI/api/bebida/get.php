@@ -22,7 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if ($bebida->idBebida) {
         // Busca a bebida
         $bebida->get(); 
-
+        if($bebida->nome == null) 
+        {
+            http_response_code(404);
+            echo json_encode(array("Erro" => "Bebida não encontrada."));
+            exit();
+        }
         // Cria o array de resposta
         $bebida_arr = array(
             "id" => $bebida->idBebida,
@@ -36,13 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // `JSON_PRETTY_PRINT` é opcional, mas deixa o JSON mais legível
         echo json_encode($bebida_arr, JSON_PRETTY_PRINT);
     } else {
-
+        http_response_code(400);
+        echo json_encode(
+            array("Erro" => "Id não informado.")
+        );
     }
 }
 else {
     http_response_code(405);
     echo json_encode(
-        array("Mensagem" => "Método não permitido.")
+        array("Erro" => "Método não permitido.")
     );
 }
 
