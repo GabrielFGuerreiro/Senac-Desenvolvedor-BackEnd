@@ -38,24 +38,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo json_encode(
                     array('Mensagem' => 'Pizza Criada com Sucesso')
                 );
-            } else {
+            }
+            else
+            {
                 http_response_code(500);
                 // Resposta de erro
                 echo json_encode(
-                    array('Mensagem' => 'Nao foi possivel criar a Pizza')
+                    array('Mensagem' => 'Não foi possivel criar a Pizza')
                 );
             }
-        } else {
+        }
+        else
+        {
             http_response_code(400);
             // Resposta se dados estiverem incompletos
             echo json_encode(
-                array('Mensagem' => 'Dados Incompletos. Nao foi possivel criar a Pizza.')
+                array('Mensagem' => 'Dados Incompletos. Não foi possivel criar a Pizza.')
             );
         }
-    } catch (Exception $e) {
+    }
+    catch (Exception $e)
+    {
         echo json_encode(array("erro" => $e->getMessage()));
     }
-} else {
+}
+else
+{
     http_response_code(405);
     echo json_encode(array("erro" => "Método não permitido!"));
 }
