@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $stmt->execute([':email' => $email]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-//    if($usuario && password_verify($senha, $usuario['senha']))
-    if($usuario && $senha == $usuario['senha'])
+    if($usuario && password_verify($senha, $usuario['senha']))
+//    if($usuario && $senha == $usuario['senha'])
     {
         $_SESSION['usuario'] = $usuario['nome'];
         $_SESSION['tipo'] = $usuario['tipo'];
