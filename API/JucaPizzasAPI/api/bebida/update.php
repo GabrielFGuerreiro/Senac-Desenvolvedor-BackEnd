@@ -28,6 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             // Atribuir o ID para atualização
             $bebida->idBebida = $data->id; //é o que vem pelo json
  
+            $bebida->get(); 
+            if($bebida->nome == null) 
+            {
+                http_response_code(404);
+                echo json_encode(array("Erro" => "Bebida não encontrada."));
+                exit();
+            }
+
             // Atribuir os demais valores
             $bebida->nome = $data->nome;
             $bebida->ingredientes = $data->ingredientes;

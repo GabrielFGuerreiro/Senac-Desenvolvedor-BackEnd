@@ -29,7 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         ) {
             // Atribuir o ID para atualização
             $pizza->idPizza = $data->id; //é o que vem pelo json
- 
+            
+            $pizza->get(); 
+            if($pizza->nome == null) 
+            {
+                http_response_code(404);
+                echo json_encode(array("Erro" => "Pizza não encontrada."));
+                exit();
+            }
+
             // Atribuir os demais valores
             $pizza->nome = $data->nome;
             $pizza->ingredientes = $data->ingredientes;
