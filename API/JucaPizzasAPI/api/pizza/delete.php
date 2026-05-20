@@ -21,7 +21,14 @@ if($_SERVER['REQUEST_METHOD'] == 'DELETE')
         if (!empty($data->id))
         {
             $pizza->idPizza = $data->id;
-
+            $pizza->get(); 
+            if($pizza->nome == null) 
+            {
+                http_response_code(404);
+                echo json_encode(array("Erro" => "Pizza não encontrada."));
+                exit();
+            }
+            
             if ($pizza->delete()) {
                 http_response_code(201);
 

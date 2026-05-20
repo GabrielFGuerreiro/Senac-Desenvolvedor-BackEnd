@@ -22,6 +22,14 @@ if($_SERVER['REQUEST_METHOD'] == 'DELETE')
         {
             $bebida->idBebida = $data->id;
 
+            $bebida->get(); 
+            if($bebida->nome == null) 
+            {
+                http_response_code(404);
+                echo json_encode(array("Erro" => "Bebida não encontrada."));
+                exit();
+            }
+
             if ($bebida->delete()) {
                 http_response_code(201);
 
