@@ -91,6 +91,21 @@ class Pizza {
         return false;
     }
 
+    public function delete()
+    {
+        $query = "DELETE FROM {$this->tabela} WHERE idPizza =:id";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':id', $this->idPizza);
+
+        if($stmt->execute())
+        {
+            return true;
+        }
+        return false;
+    }
+
 }
 
 ?>
