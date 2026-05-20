@@ -13,9 +13,7 @@ RESET
     box-sizing: border-box;
 
 }
-
  
-
 :root {
 
     --primary-color: #0d6efd;
@@ -39,9 +37,7 @@ RESET
     --transition: all 0.3s ease;
 
 }
-
  
-
 /* ===========================================
 
 ESTILO GERAL
@@ -67,9 +63,7 @@ body {
     line-height: 1.6;
 
 }
-
  
-
 /* ===========================================
 
 MENU
@@ -111,9 +105,7 @@ nav.menu {
     z-index: 1000;
 
 }
-
  
-
 .dropbtn {
 
     background: transparent;
@@ -137,9 +129,7 @@ nav.menu {
     transition: var(--transition);
 
 }
-
  
-
 .dropbtn:hover {
 
     background: rgba(255,255,255,0.15);
@@ -147,17 +137,13 @@ nav.menu {
     background: rgba(255,255,255,0.2);
 
 }
-
  
-
 .dropdown {
 
     position: relative;
 
 }
-
  
-
 .dropdown-content {
 
     display: none;
@@ -187,9 +173,7 @@ nav.menu {
     top: 100%;
 
 }
-
  
-
 .dropdown-content a {
 
     display: block;
@@ -207,9 +191,7 @@ nav.menu {
     transition: var(--transition);
 
 }
-
  
-
 .dropdown-content a:hover {
 
     background: #f0f0f0;
@@ -219,17 +201,13 @@ nav.menu {
     color: var(--primary-color);
 
 }
-
  
-
 .dropdown:hover .dropdown-content {
 
     display: block;
 
 }
-
  
-
 .menu .logout {
 
     background: #dc3545;
@@ -245,17 +223,13 @@ nav.menu {
     text-decoration: none;
 
 }
-
  
-
 .menu .logout:hover {
 
     background: #bb2d3b;
 
 }
-
  
-
 /* ===========================================
 
 CONTAINERS
@@ -283,9 +257,7 @@ CONTAINERS
     animation: fadeIn .3s ease;
 
 }
-
  
-
 .container {
 
     max-width: 450px;
@@ -295,9 +267,7 @@ CONTAINERS
     padding: 35px;
 
 }
-
  
-
 .card-editar {
 
     max-width: 450px;
@@ -307,9 +277,7 @@ CONTAINERS
     padding: 35px;
 
 }
-
  
-
 .lista-container {
 
     max-width: 950px;
@@ -319,12 +287,10 @@ CONTAINERS
     padding: 25px;
 
 }
-
  
-
 /* ===========================================
 
-TÍTULOS
+TÃTULOS
 
 =========================================== */
 
@@ -339,12 +305,10 @@ h1 {
     color: #222;
 
 }
-
  
-
 /* ===========================================
 
-FORMULÁRIOS
+FORMULÃRIOS
 
 =========================================== */
 
@@ -367,9 +331,7 @@ form select {
     background: #f8f9fa;
 
 }
-
  
-
 form input:focus,
 
 form select:focus {
@@ -383,10 +345,8 @@ form select:focus {
     outline: none;
 
 }
-
  
-
-/* Botão padrão de formulário */
+/* BotÃ£o padrÃ£o de formulÃ¡rio */
 
 .btn-form {
 
@@ -421,9 +381,7 @@ form select:focus {
     font-weight: bold;
 
 }
-
  
-
 .btn-form:hover {
 
     background: #0b5ed7;
@@ -431,12 +389,10 @@ form select:focus {
     background: var(--primary-hover);
 
 }
-
  
-
 /* ===========================================
 
-BOTÕES DE AÇÃO (EDITAR, EXCLUIR, VOLTAR ETC)
+BOTÃ•ES DE AÃ‡ÃƒO (EDITAR, EXCLUIR, VOLTAR ETC)
 
 =========================================== */
 
@@ -467,9 +423,7 @@ BOTÕES DE AÇÃO (EDITAR, EXCLUIR, VOLTAR ETC)
     cursor: pointer;
 
 }
-
  
-
 .btn-editar {
 
     background: #0d6efd;
@@ -481,9 +435,7 @@ BOTÕES DE AÇÃO (EDITAR, EXCLUIR, VOLTAR ETC)
     color: var(--white);
 
 }
-
  
-
 .btn-editar:hover {
 
     background: #0b5ed7;
@@ -491,9 +443,7 @@ BOTÕES DE AÇÃO (EDITAR, EXCLUIR, VOLTAR ETC)
     background: var(--primary-hover);
 
 }
-
  
-
 .btn-excluir {
 
     background: #dc3545;
@@ -505,17 +455,13 @@ BOTÕES DE AÇÃO (EDITAR, EXCLUIR, VOLTAR ETC)
     color: var(--white);
 
 }
-
  
-
 .btn-excluir:hover {
 
     background: #bb2d3b;
 
 }
-
  
-
 .btn-voltar {
 
     background: #555;
@@ -543,19 +489,14 @@ BOTÕES DE AÇÃO (EDITAR, EXCLUIR, VOLTAR ETC)
     margin-bottom: 15px;
 
 }
-
  
-
  
-
 .btn-voltar:hover {
 
     background: #333;
 
 }
-
  
-
 /* ===========================================
 
 TABELAS
@@ -571,9 +512,7 @@ TABELAS
     font-size: 16px;
 
 }
-
  
-
 .tabela-usuarios thead {
 
     background: #0d6efd;
@@ -585,9 +524,7 @@ TABELAS
     color: var(--white);
 
 }
-
  
-
 .tabela-usuarios th,
 
 .tabela-usuarios td {
@@ -599,17 +536,13 @@ TABELAS
     border-bottom: 1px solid #dcdcdc;
 
 }
-
  
-
 .tabela-usuarios tr:hover {
 
     background: #f5f8ff;
 
 }
-
  
-
 /* ===========================================
 
 IMAGENS
@@ -623,9 +556,7 @@ img.capa {
     border-radius: 5px;
 
 }
-
  
-
 /* ===========================================
 
 MENSAGENS
@@ -651,9 +582,7 @@ MENSAGENS
     border: 1px solid #badbcc;
 
 }
-
  
-
 .erro {
 
     padding: 12px;
@@ -673,12 +602,10 @@ MENSAGENS
     border: 1px solid #f5c2c7;
 
 }
-
  
-
 /* ===========================================
 
-ANIMAÇÃO
+ANIMAÃ‡ÃƒO
 
 =========================================== */
 
