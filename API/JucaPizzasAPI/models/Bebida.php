@@ -68,7 +68,7 @@ class Bebida {
         return false;       
     }
 
-        public function update() {
+    public function update() {
         // Query de atualização
         $query = 'UPDATE ' . $this->tabela . ' SET nome=:nome, ingredientes=:ingredientes, icAlcoolico=:icAlcoolico, valor=:valor WHERE idBebida=:id';
  
@@ -93,6 +93,21 @@ class Bebida {
             return true;
         }
      
+        return false;
+    }
+
+    public function delete()
+    {
+        $query = "DELETE FROM {$this->tabela} WHERE idBebida =:id";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':id', $this->idBebida);
+
+        if($stmt->execute())
+        {
+            return true;
+        }
         return false;
     }
 }
