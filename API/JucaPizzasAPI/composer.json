@@ -1,0 +1,17 @@
+{
+    "name": "gfg/jucapizzasapi",
+    "description": "Projeto pedagógico para demonstrar a criação de APIs.",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Gfg\\Jucapizzasapi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "GabrielFGuerreiro",
+            "email": "gaferg2004@gmail.com"
+        }
+    ],
+    "require": {}
+}
