@@ -5,9 +5,12 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
  
 // Incluir arquivos de banco de dados e modelo
-include_once '../../config/Database.php';
-include_once '../../models/Pizza.php';
+// include_once '../../config/Database.php';
+// include_once '../../models/Pizza.php';
  
+use Gfg\Jucapizzasapi\Models\Pizza;
+use Gfg\Jucapizzasapi\Config\Database;
+
 // Instanciar o objeto Database e obter a conexão
 $database = new Database();
 $db = $database->getConnection();
