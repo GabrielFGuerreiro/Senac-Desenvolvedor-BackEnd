@@ -1,5 +1,9 @@
 <?php
-class Bebida {    
+namespace Gfg\Jucapizzasapi\Models;
+use PDO;
+
+class Bebida
+{    
     private $conn;
     private $tabela = 'bebidas';
     public $idBebida;

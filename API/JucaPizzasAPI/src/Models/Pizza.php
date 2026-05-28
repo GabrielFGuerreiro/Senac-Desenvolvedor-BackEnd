@@ -1,7 +1,7 @@
 <?php
 
 namespace Gfg\Jucapizzasapi\Models;
-
+use PDO;
 class Pizza
 {    
     private $conn;
@@ -37,7 +37,7 @@ class Pizza
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->idPizza);
         $stmt->execute();
-        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
         
         $this->nome = $row['nome'];
         $this->ingredientes = $row['ingredientes'];

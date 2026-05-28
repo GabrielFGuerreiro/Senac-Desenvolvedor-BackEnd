@@ -5,9 +5,11 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
  
-// Incluir arquivos de banco de dados e modelo
-include_once '../../config/Database.php';
-include_once '../../models/Bebida.php'; 
+require __DIR__ . '/../../../vendor/autoload.php';
+ 
+use Gfg\Jucapizzasapi\Config\Database;
+use Gfg\Jucapizzasapi\Models\Bebida;
+ 
 
 // Instanciar o objeto Database e obter a conexão
 $database = new Database();
