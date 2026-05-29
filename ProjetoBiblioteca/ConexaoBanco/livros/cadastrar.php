@@ -47,12 +47,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
 ?>
 
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <title>Cadastrar Livro</title>
-<link rel="stylesheet" href="../CSS/style.css">
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
  
