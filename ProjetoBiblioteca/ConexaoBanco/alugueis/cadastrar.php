@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+require '../conexao.php';
 $usuarios = $pdo->query("SELECT id, nome FROM usuarios")->fetchAll(PDO::FETCH_ASSOC);
 $livros = $pdo->query("SELECT id, titulo FROM livros WHERE disponivel = 1")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     $dataDevolucao = date('Y-m-d', strtotime('+7 days'));   
     try
     {
-        $sq = "INSERT INTO algueeis
+        $sql = "INSERT INTO alugueis
                 (id_usuario, id_livro, data_aluguel, data_devolucao, devolvido)
                 VALUES
                 (:id_usuario, :id_livro, :data_aluguel, :data_devolucao, 0)";
@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         ]);
         $pdo->prepare("UPDATE livros SET disponivel = 0 WHERE id = :id")
         ->execute(['id' => $idLivro]);
-        echo "<script>alert('Livro alugado com sucesso!');window.location.href='../painel.php';</script>";
+        echo "<script>alert('Livro alugado com sucesso!');window.location.href='../listar.php';</script>";
     }
     catch(PDOException $e)
     {
@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     <title>Alugar Livro</title>
  
     <!-- Importa o arquivo CSS -->
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
  
 <body>
