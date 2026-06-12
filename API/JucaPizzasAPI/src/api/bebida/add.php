@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             isset($data->icAlcoolico) && !empty($data->valor)
         ) {
             // Atribuir os valores ao objeto Bebida
-            $bebida->nome = $data->nome;
-            $bebida->ingredientes = $data->ingredientes;
-            $bebida->icAlcoolico = $data->icAlcoolico;
-            $bebida->valor = $data->valor;
- 
+            $bebida->setNome($data->nome);
+            $bebida->setIngredientes($data->ingredientes);
+            $bebida->setIcAlcoolico($data->icAlcoolico);
+            $bebida->setValor($data->valor);
+             
             // Criar a bebida
             if ($bebida->add()) {
                 http_response_code(201);
