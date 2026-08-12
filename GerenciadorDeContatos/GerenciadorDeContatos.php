@@ -2,25 +2,22 @@
 
 class GerenciadorDeContatos
 {
-    private $contatos = [];
-
     public function AdicionarContato($nome, $email, $telefone)
     {
         $contato = new Contato($nome, $email, $telefone);
-        $_SESSION["contatos"] = $contato;
-        var_dump($_SESSION["contatos"]);
+        $_SESSION['contatos'][] = $contato;
     }
 
     public function GetContatos()
     {
-        return $this->contatos;
+        return $_SESSION['contatos'];
     }
 
     public function DeletarContato($indice)
     {
-        if(isset($this->contatos[$indice]))
+        if(isset($_SESSION['contatos'][$indice]))
         {
-            array_splice($this->contatos, $indice, 1);
+            array_splice($_SESSION['contatos'], $indice, 1);
         }
     }
 }

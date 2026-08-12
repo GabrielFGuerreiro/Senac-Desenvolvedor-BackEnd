@@ -1,23 +1,20 @@
 <?php
-session_start();
-
 require_once 'Contato.php';
 require_once 'GerenciadorDeContatos.php';
 
-$gerenciadorDeContatos = new GerenciadorDeContatos();
+session_start();
 
-if (!isset($_SESSION[""]))
-{
-    echo "LIMPOU";
-    $_SESSION["contatos"] = [];
+if (!isset($_SESSION['contatos'])) {
+    $_SESSION['contatos'] = [];
 }
 
+$gerenciadorDeContatos = new GerenciadorDeContatos();
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if(isset($_POST['nome'], $_POST['email'], $_POST['telefone']))
     {
         $gerenciadorDeContatos->AdicionarContato($_POST['nome'],
-         $_POST['email'], $_POST['telefone']);
+        $_POST['email'], $_POST['telefone']);
     }
 
     if(isset($_POST['deletar']))
@@ -26,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     }
 }
 
-$contatos = $gerenciadorDeContatos->GetContatos();
+$contatos  = $gerenciadorDeContatos->GetContatos();
 
 ?>
 
@@ -49,7 +46,7 @@ $contatos = $gerenciadorDeContatos->GetContatos();
     </form>
 
     <ul>
-        <?php foreach($_SESSION["contatos"] as $indice => $contato): ?>
+        <?php foreach($contatos as $indice => $contato): ?>
             <li>
                 <strong>Nome:</strong> <?= htmlspecialchars($contato->GetNome()) ?><br>
                 <strong>Email:</strong> <?= htmlspecialchars($contato->GetEmail()) ?><br>
