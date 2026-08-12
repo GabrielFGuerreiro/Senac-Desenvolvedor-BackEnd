@@ -18,13 +18,28 @@ class Contato
         return $this->nome;
     }
 
+    public function SetNome($nome)
+    {
+        $this->nome = $nome;
+    }
+
     public function GetEmail()
     {
         return $this->email;
     }
 
+    public function SetEmail($email)
+    {
+        $this->email = $email;
+    }
+
     public function GetTelefone()
     {
         return $this->telefone;
+    }
+
+    public function SetTelefone($telefone)
+    {
+        $this->telefone = $telefone;
     }
 }

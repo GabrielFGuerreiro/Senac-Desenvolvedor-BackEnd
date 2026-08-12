@@ -20,4 +20,17 @@ class GerenciadorDeContatos
             array_splice($_SESSION['contatos'], $indice, 1);
         }
     }
+
+    public function RetornarContato($indice)
+    {
+        return $_SESSION['contatos'][$indice];
+    }
+
+    public function AtualizarContato($indice, $nome, $email, $telefone)
+    {
+        $contatoEditar = $_SESSION['contatos'][$indice];
+        $contatoEditar->SetNome($nome);
+        $contatoEditar->SetEmail($email);
+        $contatoEditar->SetTelefone($telefone);
+    }
 }
