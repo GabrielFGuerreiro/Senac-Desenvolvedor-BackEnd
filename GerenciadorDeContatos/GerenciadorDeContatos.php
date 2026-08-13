@@ -36,14 +36,19 @@ class GerenciadorDeContatos
 
     public function BuscarContatos($nome)
     {
-        $indicesContatos = [];
-        foreach($_SESSION['contatos'] as $indice => $contato)
-        {
-            if(stripos($contato["nome"], $nome))
+        $indicesBuscados = [];
+        foreach ($_SESSION['contatos'] as $indice => $contato) {
+            var_dump($contato->GetNome());
+            if (stripos($contato->GetNome(), $nome) !== false)
             {
-                $indicesContatos[] = $indice;
+                $indicesBuscados[] = $indice;
             }
         }
-        return $indicesContatos;
+        return $indicesBuscados;
+    }
+
+    public function ContarContatos()
+    {
+        return count($_SESSION['contatos']);
     }
 }

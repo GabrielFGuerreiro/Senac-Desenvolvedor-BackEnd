@@ -11,7 +11,7 @@ if (!isset($_SESSION['contatos'])) {
 $gerenciadorDeContatos = new GerenciadorDeContatos();
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    if(isset($_POST['nome'], $_POST['email'], $_POST['telefone']))
+    if(isset($_POST['nome'], $_POST['email'], $_POST['telefone']) && !isset($_POST['buscar']))
     {
         if(isset($_POST['buscar']))
         {
@@ -37,10 +37,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $indiceEditar = $_POST['atualizar'];
         $contatoEditar = $gerenciadorDeContatos->RetornarContato($_POST['atualizar']);
     }
+
+    if(isset($_POST['buscar']))
+    {
+        $indicesBuscados = $gerenciadorDeContatos->BuscarContatos($_POST['nome']);
+    }
+
+    if(isset($_POST['contar']))
+    {
+        $qntContatos = $gerenciadorDeContatos->ContarContatos();
+    }
 }
 
 $contatos = $gerenciadorDeContatos->GetContatos();
+if (isset($indicesBuscados)) {
+    $contatosExibir = [];
 
+    foreach ($indicesBuscados as $indice) {
+        $contatosExibir[$indice] = $contatos[$indice];
+    }
+} else {
+    $contatosExibir = $contatos;
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,11 +83,19 @@ $contatos = $gerenciadorDeContatos->GetContatos();
         <?php endif; ?>
 
         <button type="submit" id="btnBuscar" name="buscar">Buscar Nome</button>
+        <button type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
+        <button type="submit" name="buscar">Buscar Nome</button>
+        <button type="submit" name="contar">Contar</button>
     </form>
+
+    <?php if (isset($qntContatos)): ?>
+        <input type="number" value="<?= $qntContatos ?>">
+    <?php endif; ?>
 
     <ul>
         <?php foreach($contatos as $indice => $contato): ?>
             <?php if(isset($indicesContatos))
+        <?php foreach ($contatosExibir as $indice => $contato): ?>
             <li>
                 <strong>Nome:</strong> <?= htmlspecialchars($contato->GetNome()) ?><br>
                 <strong>Email:</strong> <?= htmlspecialchars($contato->GetEmail()) ?><br>
