@@ -11,7 +11,7 @@ if (!isset($_SESSION['contatos'])) {
 $gerenciadorDeContatos = new GerenciadorDeContatos();
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    if(isset($_POST['nome'], $_POST['email'], $_POST['telefone']))
+    if(isset($_POST['nome'], $_POST['email'], $_POST['telefone']) && !isset($_POST['buscar']))
     {
         if (!isset($_POST['indiceEditar']))
         {
@@ -19,8 +19,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         else
         {
-            $gerenciadorDeContatos->AtualizarContato($_POST['indiceEditar'], $_POST['nome'], $_POST['email'], $_POST['telefone']);        }
-
+            $gerenciadorDeContatos->AtualizarContato($_POST['indiceEditar'], $_POST['nome'], $_POST['email'], $_POST['telefone']);    
+        }
     }
 
     if(isset($_POST['deletar']))
@@ -33,10 +33,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $indiceEditar = $_POST['atualizar'];
         $contatoEditar = $gerenciadorDeContatos->RetornarContato($_POST['atualizar']);
     }
+
+    if(isset($_POST['buscar']))
+    {
+        $indicesBuscados = $gerenciadorDeContatos->BuscarContatos($_POST['nome']);
+    }
+
+    if(isset($_POST['contar']))
+    {
+        $qntContatos = $gerenciadorDeContatos->ContarContatos();
+    }
 }
 
 $contatos = $gerenciadorDeContatos->GetContatos();
+if (isset($indicesBuscados)) {
+    $contatosExibir = [];
 
+    foreach ($indicesBuscados as $indice) {
+        $contatosExibir[$indice] = $contatos[$indice];
+    }
+} else {
+    $contatosExibir = $contatos;
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,19 +68,25 @@ $contatos = $gerenciadorDeContatos->GetContatos();
     <h1>Gerenciador de Contatos</h1>
 
     <form method="POST" action="">
-        <input type="text" name="nome" placeholder="Digite o Nome" value="<?= isset($contatoEditar) ? $contatoEditar->GetNome() : "" ?>"required>
-        <input type="email" name="email" placeholder="Digite o E-mail" value="<?= isset($contatoEditar) ? $contatoEditar->GetEmail() : "" ?>" required>
-        <input type="tel" name="telefone" placeholder="Digite o Telefone" value="<?= isset($contatoEditar) ? $contatoEditar->GetTelefone() : "" ?>" required><br>
+        <input type="text" name="nome" placeholder="Digite o Nome" value="<?= isset($contatoEditar) ? $contatoEditar->GetNome() : "" ?>">
+        <input type="email" name="email" placeholder="Digite o E-mail" value="<?= isset($contatoEditar) ? $contatoEditar->GetEmail() : "" ?>" >
+        <input type="tel" name="telefone" placeholder="Digite o Telefone" value="<?= isset($contatoEditar) ? $contatoEditar->GetTelefone() : "" ?>"><br>
 
         <?php if (isset($contatoEditar)): ?>
             <input type="hidden" name="indiceEditar" value="<?= $indiceEditar ?>">
         <?php endif; ?>
 
         <button type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
+        <button type="submit" name="buscar">Buscar Nome</button>
+        <button type="submit" name="contar">Contar</button>
     </form>
 
+    <?php if (isset($qntContatos)): ?>
+        <input type="number" value="<?= $qntContatos ?>">
+    <?php endif; ?>
+
     <ul>
-        <?php foreach($contatos as $indice => $contato): ?>
+        <?php foreach ($contatosExibir as $indice => $contato): ?>
             <li>
                 <strong>Nome:</strong> <?= htmlspecialchars($contato->GetNome()) ?><br>
                 <strong>Email:</strong> <?= htmlspecialchars($contato->GetEmail()) ?><br>
