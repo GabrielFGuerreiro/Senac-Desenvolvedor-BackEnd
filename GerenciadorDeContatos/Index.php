@@ -19,8 +19,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         else
         {
-            $gerenciadorDeContatos->AtualizarContato($_POST['indiceEditar'], $_POST['nome'], $_POST['email'], $_POST['telefone']);        }
-
+            $gerenciadorDeContatos->AtualizarContato($_POST['indiceEditar'], $_POST['nome'], $_POST['email'], $_POST['telefone']);
+        }
     }
 
     if(isset($_POST['deletar']))
@@ -54,13 +54,13 @@ $contatos = $gerenciadorDeContatos->GetContatos();
         <input type="email" name="email" placeholder="Digite o E-mail" value="<?= isset($contatoEditar) ? $contatoEditar->GetEmail() : "" ?>" required>
         <input type="tel" name="telefone" placeholder="Digite o Telefone" value="<?= isset($contatoEditar) ? $contatoEditar->GetTelefone() : "" ?>" required><br>
 
+        <button type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
         <?php if (isset($contatoEditar)): ?>
             <input type="hidden" name="indiceEditar" value="<?= $indiceEditar ?>">
+            <button>Cancelar</button>
         <?php endif; ?>
-
-        <button type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
     </form>
-
+            
     <ul>
         <?php foreach($contatos as $indice => $contato): ?>
             <li>
@@ -70,21 +70,10 @@ $contatos = $gerenciadorDeContatos->GetContatos();
 
                 <form method="POST" action="" style="display:inline;">
                     <button type="submit" name="deletar" value="<?= $indice ?>">Excluir</button>
-                    <button type="submit" class="btnEditar" name="atualizar" value="<?= $indice ?>">Editar</button>
+                    <button type="submit" name="atualizar" value="<?= $indice ?>">Editar</button>
                 </form>
             </li>
         <?php endforeach; ?>
     </ul>
 </body>
 </html>
-
-<script>
-    document.querySelectorAll(".btnEditar").forEach(botao => {
-        botao.addEventListener("click", function()
-        {
-            document.getElementById("btnAddContato").textContent="teste";
-        });
-    });
-    
-
-</script>
