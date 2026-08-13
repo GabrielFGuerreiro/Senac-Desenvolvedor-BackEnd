@@ -13,11 +13,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if(isset($_POST['nome'], $_POST['email'], $_POST['telefone']) && !isset($_POST['buscar']))
     {
-        if(isset($_POST['buscar']))
-        {
-            $indicesContatos = $gerenciadorDeContatos->BuscarContatos($_POST['nome']);
-        }
-        else if (!isset($_POST['indiceEditar']))
+        if (!isset($_POST['indiceEditar']))
         {
             $gerenciadorDeContatos->AdicionarContato($_POST['nome'], $_POST['email'], $_POST['telefone']);
         }
@@ -26,19 +22,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
             $gerenciadorDeContatos->AtualizarContato($_POST['indiceEditar'], $_POST['nome'], $_POST['email'], $_POST['telefone']);
         }
     }
-
-    if(isset($_POST['deletar']))
+    else if(isset($_POST['deletar']))
     {
         $gerenciadorDeContatos->DeletarContato($_POST['deletar']);
     }
 
-    if(isset($_POST['atualizar']))
+    else if(isset($_POST['atualizar']))
     {
         $indiceEditar = $_POST['atualizar'];
         $contatoEditar = $gerenciadorDeContatos->RetornarContato($_POST['atualizar']);
     }
-
-    if(isset($_POST['buscar']))
+    else
     {
         $indicesBuscados = $gerenciadorDeContatos->BuscarContatos($_POST['nome']);
     }
@@ -74,13 +68,10 @@ if (isset($indicesBuscados)) {
         <button id="btnAddAtt" type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
         <?php if (isset($contatoEditar)): ?>
             <input type="hidden" name="indiceEditar" value="<?= $indiceEditar ?>">
-            <button>Cancelar</button>
+            <button type="button" id="btnCancelar">Cancelar</button>
         <?php endif; ?>
 
         <button type="submit" id="btnBuscar" name="buscar">Buscar Nome</button>
-        <button type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
-        <button type="submit" name="buscar">Buscar Nome</button>
-        <button type="submit" name="contar">Contar</button>
     </form>
     <p>Quantidade de Contatos:<?= $gerenciadorDeContatos->ContarContatos() ?></p>
 
@@ -89,8 +80,6 @@ if (isset($indicesBuscados)) {
     <?php endif; ?>
 
     <ul>
-        <?php foreach($contatos as $indice => $contato): ?>
-            <?php if(isset($indicesContatos))
         <?php foreach ($contatosExibir as $indice => $contato): ?>
             <li>
                 <strong>Nome:</strong> <?= htmlspecialchars($contato->GetNome()) ?><br>
@@ -108,35 +97,45 @@ if (isset($indicesBuscados)) {
 </html>
 
 <script>
+    let form = document.getElementById("formContato");
+    let nome = document.getElementById("nome");
+    let email = document.getElementById("email");
+    let tel = document.getElementById("telefone");
+    let btnAddAtt = document.getElementById("btnAddAtt");
 
-    document.getElementById("btnAddAtt").addEventListener("click", function(e)
+    btnAddAtt.addEventListener("click", function(e)
     {
         e.preventDefault();
-        let nome = document.getElementById("nome").value;
-        let email = document.getElementById("email").value;
-        let tel = document.getElementById("telefone").value;
 
-        if(!nome || !email || !tel)
+        if(!nome.value || !email.value || !tel.value)
         {
             alert("Preencha Todos os Campos");
             return;
         }
 
-       document.getElementById("formContato").submit();
+       form.submit();
     });
 
     
     document.getElementById("btnBuscar").addEventListener("click", function(e)
     {
         e.preventDefault();
-        let nome = document.getElementById("nome").value;
-
-        if(!nome || !email || !tel)
+        
+        if(!nome.value)
         {
             alert("Preencha o Nome");
             return;
         }
 
-       document.getElementById("formContato").submit();
+       form.submit();
+    });
+
+    document.getElementById("btnCancelar").addEventListener("click", function(e)
+    {
+        nome.value = "";
+        email.value = "";
+        tel.value = "";
+        btnAddAtt.textContent = "Adicionar Contato";
+        this.style.display = "none";
     });
 </script>
