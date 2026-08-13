@@ -42,11 +42,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     {
         $indicesBuscados = $gerenciadorDeContatos->BuscarContatos($_POST['nome']);
     }
-
-    if(isset($_POST['contar']))
-    {
-        $qntContatos = $gerenciadorDeContatos->ContarContatos();
-    }
 }
 
 $contatos = $gerenciadorDeContatos->GetContatos();
@@ -87,6 +82,7 @@ if (isset($indicesBuscados)) {
         <button type="submit" name="buscar">Buscar Nome</button>
         <button type="submit" name="contar">Contar</button>
     </form>
+    <p>Quantidade de Contatos:<?= $gerenciadorDeContatos->ContarContatos() ?></p>
 
     <?php if (isset($qntContatos)): ?>
         <input type="number" value="<?= $qntContatos ?>">
