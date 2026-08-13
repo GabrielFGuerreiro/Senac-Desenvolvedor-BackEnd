@@ -33,4 +33,17 @@ class GerenciadorDeContatos
         $contatoEditar->SetEmail($email);
         $contatoEditar->SetTelefone($telefone);
     }
+
+    public function BuscarContatos($nome)
+    {
+        $indicesContatos = [];
+        foreach($_SESSION['contatos'] as $indice => $contato)
+        {
+            if(stripos($contato["nome"], $nome))
+            {
+                $indicesContatos[] = $indice;
+            }
+        }
+        return $indicesContatos;
+    }
 }

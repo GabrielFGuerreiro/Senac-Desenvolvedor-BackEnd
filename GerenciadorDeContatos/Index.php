@@ -13,7 +13,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if(isset($_POST['nome'], $_POST['email'], $_POST['telefone']))
     {
-        if (!isset($_POST['indiceEditar']))
+        if(isset($_POST['buscar']))
+        {
+            $indicesContatos = $gerenciadorDeContatos->BuscarContatos($_POST['nome']);
+        }
+        else if (!isset($_POST['indiceEditar']))
         {
             $gerenciadorDeContatos->AdicionarContato($_POST['nome'], $_POST['email'], $_POST['telefone']);
         }
@@ -49,20 +53,23 @@ $contatos = $gerenciadorDeContatos->GetContatos();
 <body>
     <h1>Gerenciador de Contatos</h1>
 
-    <form method="POST" action="">
-        <input type="text" name="nome" placeholder="Digite o Nome" value="<?= isset($contatoEditar) ? $contatoEditar->GetNome() : "" ?>"required>
-        <input type="email" name="email" placeholder="Digite o E-mail" value="<?= isset($contatoEditar) ? $contatoEditar->GetEmail() : "" ?>" required>
-        <input type="tel" name="telefone" placeholder="Digite o Telefone" value="<?= isset($contatoEditar) ? $contatoEditar->GetTelefone() : "" ?>" required><br>
+    <form method="POST" action="" id="formContato">
+        <input type="text" id="nome" name="nome" placeholder="Digite o Nome" value="<?= isset($contatoEditar) ? $contatoEditar->GetNome() : "" ?>">
+        <input type="email" id="email" name="email" placeholder="Digite o E-mail" value="<?= isset($contatoEditar) ? $contatoEditar->GetEmail() : "" ?>">
+        <input type="tel" id="telefone" name="telefone" placeholder="Digite o Telefone" value="<?= isset($contatoEditar) ? $contatoEditar->GetTelefone() : "" ?>"><br>
 
-        <button type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
+        <button id="btnAddAtt" type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
         <?php if (isset($contatoEditar)): ?>
             <input type="hidden" name="indiceEditar" value="<?= $indiceEditar ?>">
             <button>Cancelar</button>
         <?php endif; ?>
+
+        <button type="submit" id="btnBuscar" name="buscar">Buscar Nome</button>
     </form>
-            
+
     <ul>
         <?php foreach($contatos as $indice => $contato): ?>
+            <?php if(isset($indicesContatos))
             <li>
                 <strong>Nome:</strong> <?= htmlspecialchars($contato->GetNome()) ?><br>
                 <strong>Email:</strong> <?= htmlspecialchars($contato->GetEmail()) ?><br>
@@ -77,3 +84,37 @@ $contatos = $gerenciadorDeContatos->GetContatos();
     </ul>
 </body>
 </html>
+
+<script>
+
+    document.getElementById("btnAddAtt").addEventListener("click", function(e)
+    {
+        e.preventDefault();
+        let nome = document.getElementById("nome").value;
+        let email = document.getElementById("email").value;
+        let tel = document.getElementById("telefone").value;
+
+        if(!nome || !email || !tel)
+        {
+            alert("Preencha Todos os Campos");
+            return;
+        }
+
+       document.getElementById("formContato").submit();
+    });
+
+    
+    document.getElementById("btnBuscar").addEventListener("click", function(e)
+    {
+        e.preventDefault();
+        let nome = document.getElementById("nome").value;
+
+        if(!nome || !email || !tel)
+        {
+            alert("Preencha o Nome");
+            return;
+        }
+
+       document.getElementById("formContato").submit();
+    });
+</script>
