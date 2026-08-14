@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if(isset($_POST['nome'], $_POST['email'], $_POST['telefone']) && !isset($_POST['buscar']))
     {
-        if (!isset($_POST['indiceEditar']))
+        if ($_POST['indiceEditar'] == "")
         {
             $gerenciadorDeContatos->AdicionarContato($_POST['nome'], $_POST['email'], $_POST['telefone']);
         }
@@ -26,13 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     {
         $gerenciadorDeContatos->DeletarContato($_POST['deletar']);
     }
-
-    else if(isset($_POST['atualizar']))
-    {
-        $indiceEditar = $_POST['atualizar'];
-        $contatoEditar = $gerenciadorDeContatos->RetornarContato($_POST['atualizar']);
-    }
-    else
+    else if(isset($_POST['nome']))
     {
         $indicesBuscados = $gerenciadorDeContatos->BuscarContatos($_POST['nome']);
     }
@@ -61,15 +55,14 @@ if (isset($indicesBuscados)) {
     <h1>Gerenciador de Contatos</h1>
 
     <form method="POST" action="" id="formContato">
-        <input type="text" id="nome" name="nome" placeholder="Digite o Nome" value="<?= isset($contatoEditar) ? $contatoEditar->GetNome() : "" ?>">
-        <input type="email" id="email" name="email" placeholder="Digite o E-mail" value="<?= isset($contatoEditar) ? $contatoEditar->GetEmail() : "" ?>">
-        <input type="tel" id="telefone" name="telefone" placeholder="Digite o Telefone" value="<?= isset($contatoEditar) ? $contatoEditar->GetTelefone() : "" ?>"><br>
+        <input type="hidden" id="indiceEditar" name="indiceEditar" value="">
 
-        <button id="btnAddAtt" type="submit"><?= isset($contatoEditar) ? "Atualizar Contato" : "Adicionar Contato" ?></button>
-        <?php if (isset($contatoEditar)): ?>
-            <input type="hidden" name="indiceEditar" value="<?= $indiceEditar ?>">
-            <button type="button" id="btnCancelar">Cancelar</button>
-        <?php endif; ?>
+        <input type="text" id="nome" name="nome" placeholder="Digite o Nome">
+        <input type="email" id="email" name="email" placeholder="Digite o E-mail">
+        <input type="tel" id="telefone" name="telefone" placeholder="Digite o Telefone"><br>
+
+        <button id="btnAddAtt" name="adicionar" type="submit">Adicionar Contato</button>
+        <button type="button" id="btnCancelar" style="display:none">Cancelar</button>
 
         <button type="submit" id="btnBuscar" name="buscar">Buscar Nome</button>
     </form>
@@ -88,7 +81,7 @@ if (isset($indicesBuscados)) {
 
                 <form method="POST" action="" style="display:inline;">
                     <button type="submit" name="deletar" value="<?= $indice ?>">Excluir</button>
-                    <button type="submit" name="atualizar" value="<?= $indice ?>">Editar</button>
+                    <button type="button" class="btnEditar" value="<?= $indice ?>" data-nome="<?= $contato->GetNome() ?>" data-email="<?= $contato->GetEmail() ?>" data-tel="<?= $contato->GetTelefone() ?>">Editar</button>
                 </form>
             </li>
         <?php endforeach; ?>
@@ -102,6 +95,8 @@ if (isset($indicesBuscados)) {
     let email = document.getElementById("email");
     let tel = document.getElementById("telefone");
     let btnAddAtt = document.getElementById("btnAddAtt");
+    let btnCancelar = document.getElementById("btnCancelar");
+    let indiceEditar = document.getElementById("indiceEditar");
 
     btnAddAtt.addEventListener("click", function(e)
     {
@@ -112,7 +107,6 @@ if (isset($indicesBuscados)) {
             alert("Preencha Todos os Campos");
             return;
         }
-
        form.submit();
     });
 
@@ -130,12 +124,27 @@ if (isset($indicesBuscados)) {
        form.submit();
     });
 
-    document.getElementById("btnCancelar").addEventListener("click", function(e)
+    btnCancelar.addEventListener("click", function(e)
     {
         nome.value = "";
         email.value = "";
         tel.value = "";
         btnAddAtt.textContent = "Adicionar Contato";
+        indiceEditar.value = "";
         this.style.display = "none";
     });
+
+    let btnsEditar = document.querySelectorAll(".btnEditar");
+    btnsEditar.forEach(btnEditar => {
+        btnEditar.addEventListener("click", function()
+        {
+            indiceEditar.value = this.value;
+            nome.value = this.dataset.nome;
+            email.value = this.dataset.email;
+            tel.value = this.dataset.tel;
+            btnAddAtt.textContent = "Atualizar Contato";
+            btnCancelar.style.display = "inline";            
+        });
+    });
+
 </script>
